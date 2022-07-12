@@ -14,6 +14,19 @@ C:\Intel\XAMP\htdocs\the\bootstrap\cache\packages.php
 
 
 
+3# Đặt thông tin lên các nơi cần thông báo - login
+@if(session()->has('message'))
+    <div class="alert alert-success" data-animation-in="animated fadeIn" data-animation-out="animated fadeOut">
+        {{ session()->get('message') }}
+    </div>
+@endif
+@if(session()->has('error'))
+
+    <div class="alert alert-danger" data-animation-in="animated fadeIn" data-animation-out="animated fadeOut">
+        {{ session()->get('error') }}
+    </div>
+@endif
+
 
 
 

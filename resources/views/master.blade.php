@@ -202,6 +202,10 @@
                                 <img src="/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
                                 <span>
                                     @if(Auth::guest())
+
+                                        {{--                                User list    --}}
+
+
                                         Người Dùng
                                     @else
                                         {{ Auth::user()->name}} {{ number_format(Auth::user()->money_1) }}  đ
@@ -211,6 +215,22 @@
                             </a>
                             <ul class="show-notification profile-notification">
                                 @if(Auth::guest())
+
+
+                                    <li class="waves-effect waves-light">
+                                        <a href="{{ route('login') }}">
+                                            <i class="ti-user"></i> Đăng Nhập
+                                        </a>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <a href="{{ route('register') }}">
+                                            <i class="ti-star"></i>Đăng Ký
+                                        </a>
+                                    </li>
+
+
+
+
                                 @else
 
                                 <li class="waves-effect waves-light">
@@ -268,6 +288,9 @@
                                     <span id="more-details">
                                         @if(Auth::guest())
                                             Người Dùng
+
+                                            {{--                                User list    --}}
+
                                         @else
                                             {{ Auth::user()->name}} {{ number_format(Auth::user()->money_1) }}  đ
                                         @endif
@@ -282,6 +305,11 @@
 
                                     <li class="more-details">
                                         @if(Auth::guest())
+
+                                            <a href="{{ route('login') }}"><i class="ti-user"></i>Đăng Nhập</a>
+                                            <a href="{{ route('register') }}"><i class="ti-user"></i>Đăng Ký</a>
+
+
                                         @else
                                             <a href="#">
                                                 <i class="ti-money"></i> Số dư 1:   {{ number_format(Auth::user()->money_1) }}  đ</a>
@@ -319,20 +347,41 @@
                                 </a>
                             </li>
 
-                            <li class="">
-                                <a href="{{ route('nap-the.history-card') }}" class="waves-effect waves-dark">
-                                    <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                    <span class="pcoded-mtext">Lịch sử </span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="{{ route('frame.index') }}" class="waves-effect waves-dark">
-                                    <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                    <span class="pcoded-mtext">Mã nhúng </span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
+                            @if(Auth::guest())
+
+
+
+                                <li class="">
+                                    <a href="{{ route('login') }}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-lock"></i><b>D</b></span>
+                                        <span class="pcoded-mtext">Đăng Nhập </span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{{ route('register') }}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-angle-right"></i><b>D</b></span>
+                                        <span class="pcoded-mtext">Đăng Ký</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                            @else
+                                <li class="">
+                                    <a href="{{ route('nap-the.history-card') }}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext">Lịch sử </span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{{ route('frame.index') }}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext">Mã nhúng </span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+
+                            @endif
                             <li class="">
                                 <a href="{{ route('nap-the') }}" class="waves-effect waves-dark">
                                     <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>

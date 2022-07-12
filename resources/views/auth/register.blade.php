@@ -5,6 +5,10 @@
 
 @section('content')
 
+
+
+
+
 <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             @if(session()->has('message'))
@@ -51,17 +55,20 @@
 
 
 
+
                                 <div class="form-group row">
 
                                     <div class="col-md-12">
                                         <input placeholder="{{ __('Họ và tên bạn') }} " id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
 
-                                        @if ($errors->has('name'))
-                                            <span class="invalid-feedback" role="alert">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    @if ($errors->has('name'))
+                                        <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('name') }} - Username có thể viết hoa cách có dấu theo tên bạn hoặc viết liền</strong>
                                     </span>
-                                        @endif
-                                    </div>
+                                    @endif
                                 </div>
 
 
@@ -121,12 +128,17 @@
                                     <div class="col-md-12">
                                         <input placeholder="Nhập mật khẩu của bạn" id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
-                                        @if ($errors->has('password'))
-                                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }} - Mật khẩu 6 ký tự trở lên bao gồm chữ in hoa, chữ thường và số</strong>
-                                    </span>
-                                        @endif
+
                                     </div>
+
+                                    <div class="col-md-12">
+                                    @if ($errors->has('password'))
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('password') }} - Mật khẩu 6 ký tự trở lên bao gồm chữ in hoa, chữ thường và số</strong>
+                                        </span>
+                                    @endif
+                                    </div>
+
 
                                 </div>
 
@@ -140,10 +152,20 @@
                                         <input placeholder="MK Giao Dịch" id="password2" type="password" class="form-control" name="password2" required>
                                         @if ($errors->has('password2'))
                                             <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password2') }} - Mật khẩu cấp 2 dùng cho các giao dịch quan trọng như rút tiền chuyển tiền. Mật khẩu phải bao gồm chữ cái viết hoa, chữ thường và số</strong>
-                                    </span>
+                                             <strong>{{ $errors->first('password2') }} - Mật khẩu cấp 2 dùng cho các giao dịch quan trọng như rút tiền chuyển tiền. Mật khẩu phải bao gồm chữ cái viết hoa, chữ thường và số</strong>
+                                            </span>
                                         @endif
                                     </div>
+
+                                    <div class="col-md-12">
+                                    @if ($errors->has('password2'))
+                                        <span class="invalid-feedback" role="alert">
+                                             <strong>{{ $errors->first('password2') }} - Mật khẩu cấp 2 dùng cho các giao dịch quan trọng như rút tiền chuyển tiền. Mật khẩu phải bao gồm chữ cái viết hoa, chữ thường và số</strong>
+                                            </span>
+                                    @endif
+                                     </div>
+
+
                                 </div>
                                 <br/>
 
@@ -196,7 +218,7 @@
                                         @if ($errors->has('name'))
                                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('name') }} - Username có thể viết hoa cách có dấu theo tên bạn hoặc viết liền</strong>
-                                    </span>
+                                        </span>
                                         @endif
                                     </div>
                                 </div>

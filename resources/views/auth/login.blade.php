@@ -5,6 +5,21 @@
 @section('content')
 <script src="{{ asset('css/app.css') }}" defer></script>
 
+
+
+@if(session()->has('message'))
+    <div class="alert alert-success" data-animation-in="animated fadeIn" data-animation-out="animated fadeOut">
+        {{ session()->get('message') }}
+    </div>
+@endif
+@if(session()->has('error'))
+
+    <div class="alert alert-danger" data-animation-in="animated fadeIn" data-animation-out="animated fadeOut">
+        {{ session()->get('error') }}
+    </div>
+@endif
+
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-7">

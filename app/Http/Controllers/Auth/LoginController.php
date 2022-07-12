@@ -37,7 +37,7 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-	
+
 	 public function login(Request $request)
     {
         $this->validateLogin($request);
@@ -48,11 +48,15 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
 
+
+
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password]) || Auth::attempt(['phone_number' => $request->email, 'password' => $request->password]) ) {
 //             return redirect()->intended('admin-dashboard');
+            return redirect()->back()->with('message','Đăng nhập thành công.');
+
         }  else {
             $this->incrementLoginAttempts($request);
-            return redirect()->back()->with('error','Incorrect login information, please check again.');
+            return redirect()->back()->with('error','Nhập sai thông tin vui lòng đăng nhập lại.');
         }
 
         $this->incrementLoginAttempts($request);

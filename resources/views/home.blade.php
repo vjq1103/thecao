@@ -1,7 +1,11 @@
 @extends('master')
  @section('title') Trang chủ @endsection
  @section('content')
- @if(!Auth::guest())
+
+@if(!Auth::guest())
+
+
+
 <!--  nhận thẻ cào uy tín
 <div class="jumbotron">
 Xin chào: {{ Auth::user()->name }}
@@ -15,12 +19,13 @@ Xin chào: {{ Auth::user()->name }}
 
       <br/>
 
-      </div>  
-      <iframe width="90%" height="345" src="https://www.youtube.com/embed/lm1KXCUIVPo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>    
+      </div>
+      <iframe width="90%" height="345" src="https://www.youtube.com/embed/lm1KXCUIVPo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       --->
 @else @endif
 
-<?php 
+
+<?php
 /**
       <br>
       <div class="row">
@@ -102,14 +107,28 @@ Xin chào: {{ Auth::user()->name }}
       <br>
     **/ ?>
 
+@if(session()->has('message'))
+    <div class="alert alert-success">
+        {{ session()->get('message') }}
+    </div>
+@endif
+@if(session()->has('error'))
+    <div class="alert alert-danger">
+        {{ session()->get('error') }}
+    </div>
+@endif
+
+
     <marquee width="100%" behavior="scroll" bgcolor="#27ae60" style="z-index:10001;margin:0;padding:0;position:fixed;bottom:0;left:0;right:0">
         <span style="color:#fff">Nạp thẻ Viettel, Mobi, và Vina - click đăng kí để tích hợp mã nhúng ngay!</span>
     </marquee>
 
+
+
     <div class="row">
         <div class="col-md-6">
             <div class="panel panel-default panel-table">
-                <h4>ĐỔI THẺ NHANH CK   @foreach ($result as $value)  @if($value->cat_id == 1)  {{ $value->ckcham }} %  @else 
+                <h4>ĐỔI THẺ NHANH CK   @foreach ($result as $value)  @if($value->cat_id == 1)  {{ $value->ckcham }} %  @else
                                           @endif @endforeach </h4>
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -140,7 +159,7 @@ Xin chào: {{ Auth::user()->name }}
                                                   <th class="number">Nạp chậm</th>
                                                  <th class="number">Trạng thái</th>
                                               </tr>
-                            
+
                             </thead>
                             <tbody class="no-border-x">
                                 @foreach ($result as $value)
@@ -170,14 +189,14 @@ Xin chào: {{ Auth::user()->name }}
 
                 /***
                 <div class="panel panel-default panel-table">
-                        <h4>ĐỔI THẺ CHẬM CK  @foreach ($result as $value)  @if($value->cat_id == 1)  {{ $value->ckcham }} %  @else 
+                        <h4>ĐỔI THẺ CHẬM CK  @foreach ($result as $value)  @if($value->cat_id == 1)  {{ $value->ckcham }} %  @else
                                           @endif @endforeach </h4>
                          <div class="panel-body">
                             @if(Auth::guest())
-                 <iframe src='http://8paydoithe.com/nap-the-cham/81' style='width:100% ; height:520px' frameborder='0' marginwidth='0' marginheight='0' scrolling='yes'></iframe>  
+                 <iframe src='http://8paydoithe.com/nap-the-cham/81' style='width:100% ; height:520px' frameborder='0' marginwidth='0' marginheight='0' scrolling='yes'></iframe>
                @else
                 <iframe src='http://8paydoithe.com/nap-the-cham/{{ Auth::user()->id}}' style='width:100% ; height:520px' frameborder='0' marginwidth='0' marginheight='0' scrolling='yes'></iframe>
-              @endif  
+              @endif
                          </div>
                       </div>
         </div>
@@ -197,14 +216,14 @@ Xin chào: {{ Auth::user()->name }}
             <h4>HƯỚNG DẪN SỬ DỤNG</h4> VIDEO HƯỚNG DẪN NẠP THẺ VÀ TÍCH HỢP <br/>
            <strong>Hệ thống đổi thẻ cào thành tiền mặt</strong><br/>
 Hỗ trợ 3 nhà mạng Viettel, Mobifone, Vinaphone với tất cả các mệnh giá.<br/>
-Chiết khấu chỉ từ 30 - 32%, tức là khi bạn đổi thẻ cào 100.000đ bạn sẽ nhận được số tiền tương ứng với chiết khấu<br/><br/><hr> 
+Chiết khấu chỉ từ 30 - 32%, tức là khi bạn đổi thẻ cào 100.000đ bạn sẽ nhận được số tiền tương ứng với chiết khấu<br/><br/><hr>
 Tốc độ xử lý thẻ nhanh chóng. Trung bình từ 1 - 3 phút.<br/>
-Hỗ trợ API trả kết quả tự động dành cho các webmaster.<br/> 
+Hỗ trợ API trả kết quả tự động dành cho các webmaster.<br/>
         </div>
         <div class="col-md-4">
 
           <div class="panel panel-default panel-table">
-                <h4>ĐỔI THẺ CHẬM   @foreach ($result as $value)  @if($value->cat_id == 1)  {{ $value->ckcham }} %  @else 
+                <h4>ĐỔI THẺ CHẬM   @foreach ($result as $value)  @if($value->cat_id == 1)  {{ $value->ckcham }} %  @else
                                           @endif @endforeach </h4>
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -216,13 +235,13 @@ Hỗ trợ API trả kết quả tự động dành cho các webmaster.<br/>
                         @endif
                     </div>
                 </div>
-            </div> 
+            </div>
          </div>
 
 
-       <div class="col-md-4">    
+       <div class="col-md-4">
         <h4>GIÁ NẠP CHẬM</h4>
- 
+
 
             <div class="panel panel-default panel-table">
                 <h4>BẢNG GIÁ NẠP THẺ</h4>
@@ -238,14 +257,14 @@ Hỗ trợ API trả kết quả tự động dành cho các webmaster.<br/>
                                                  <th class="number">Trạng thái</th>
                                               </tr>
                                             -->
-                            
+
                             </thead>
                             <tbody class="no-border-x">
                                 @foreach ($result as $value)
                                 <tr>
                                     <!--<td>{{ $value->cat_id }}</td>-->
                                     <td style="text-align:center"><img src="/img/logo/{{ $value->card_name }}.png" alt="{{ $value->card_name }}" title="Đổi thẻ cào {{ $value->card_name }}" />
-                                        <br/> <span class="label label-blue">{{ $value->card_name }}</span></td> 
+                                        <br/> <span class="label label-blue">{{ $value->card_name }}</span></td>
                                      <td class="number">{{ $value->ckcham }} %</td>
                                     <td class="number">
                                         @if($value->ckcham_status == 1)
@@ -260,7 +279,7 @@ Hỗ trợ API trả kết quả tự động dành cho các webmaster.<br/>
                     </div>
                 </div>
 
-          
+
 
 
 
