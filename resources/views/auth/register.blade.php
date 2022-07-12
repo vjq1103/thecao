@@ -22,7 +22,7 @@
     <div class="row justify-content-center">
         <div class="col-md-7">
             <div class="card">
-                <div class="card-header">{{ __('ĐĂNG KÍ NẠP THẺ') }}</div>
+                <div class="card-header">{{ __('ĐĂNG KÍ') }}</div>
 
                 <div class="card-body">
 
