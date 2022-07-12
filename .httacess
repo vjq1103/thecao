@@ -1,0 +1,15 @@
+RewriteEngine on 
+RewriteCond %{REQUEST_URI} !^public 
+RewriteRule ^(.*)$ public/$1 [L]
+
+# Bảo vệ file .env
+<files .env>
+order allow,deny
+deny from all
+</files>
+ 
+
+  <Files composer.json>
+    Order allow,deny
+    Deny from all
+  </Files>

@@ -1,0 +1,169 @@
+.label-danger {
+    color: #fff;
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
+
+.h4, h4 {
+    color:#579fd8;
+    border-bottom: 2px solid #cce4f7; 
+    padding: 12px 19px;
+    font-size: 1.6rem;    
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.label-success {
+  background-color: #37b358;
+}
+.label-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.label-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+.label-blue {
+    color: #fff;
+  background-color: #007bff;
+}
+.label-orange {
+    color: #fff;
+  background-color: #fd7e14;
+}
+.label-yellow {
+    color: #fff;
+  background-color:#ffc107;
+}
+.label-cyan {
+    color: #fff;
+  background-color:#17a2b8;
+}
+
+.label-info {
+    color: #fff;
+  background-color: #17a2b8;
+}
+.label-secondary {
+    color: #fff;
+  background-color:#6c757d;
+}
+.label-gray {
+    color: #fff;
+  background-color: #6c757d;
+}
+.label-teal {
+    color: #fff;
+  background-color:#20c997;
+}
+.label-green {
+    color: #fff;
+  background-color: #28a745;
+}
+.label-pink {
+    color: #fff;
+  background-color: #e83e8c;
+}
+.label-purple {
+    color: #fff;
+  background-color:#6f42c1;
+}
+.label-indigo {
+    color: #fff;
+  background-color:#6610f2;
+}
+.label-indigo {
+    color: #fff;
+  background-color: #6610f2;
+} 
+
+.label-indigo {
+    color: #fff;
+  background-color: #6610f2;
+} 
+
+
+.label-kieu {
+    color: #fff;
+  background-color: #585858;
+} 
+
+.label-duyet {
+    color: #fff;
+  background-color: #c7b5b5;
+} 
+
+
+.label-user {
+    color: #fff;
+  background-color: #579fd8;
+} 
+
+
+
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.card-header {
+    padding: 1.75rem 1.25rem;
+    margin-bottom: 0;
+	font-weight:bold;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+.card-body { 
+	text-align:center;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+} 
+ 
+
+
+
+
+.label {
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 75%;
+  font-weight: bold;
+  line-height: 1;
+  color: #ffffff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25em;
+}
+.label-warning {
+  background-color: #f6c163;
+}
+.tabl {
+  width: 100%;
+  height: auto;
+  border: 2px solid #c4c4c4;
+}
+._padding {
+
+    margin-bottom: 1em;
+    border-bottom: none;
+}
+.panel {
+  background-color: #ffffff;
+  margin-bottom: 5px;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.04);
+  border-width: 0;
+  border-radius: 3px;
+}

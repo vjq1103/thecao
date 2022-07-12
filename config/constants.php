@@ -1,0 +1,48 @@
+<?php
+
+return [
+    'IS_IMAGE' => 0,
+    'NOT_IMAGES' => 1,
+
+    'CHO_DUYET' => 0,
+    'DANG_XU_LY' => 0,
+    'CHAP_NHAN' => 2,
+    'HUY' => 3,
+    'THE_SAI' => 4,
+    'BAO_TRI' => 5,
+    'XOA' => 6,
+    'CHUA_XOA' => 0,
+    'CHUYEN_TIEN' => 0,
+    'RUT_TIEN' =>1 ,
+    'STATUS_ACTICE' => 0,
+    'CARD_STATUS'=>1,
+    'PHI_RUT'=>5000,
+    'PHI_CHUYEN'=> 1000,
+    'CHUA_NAP_TIEN' => 0,
+    'DA_NAP_TIEN' => 1,
+    'CHUA_CONFIRM' =>0,
+    'CONFIRM_NAP_TIEN' =>1,
+    'MUA_THE' =>3,
+    'NAP_TIEN' =>2,
+    'CHUYEN_TIEN' =>1,
+    'CHUA_NAP' => 0,
+    'DA_NAP'=>1,	
+    'TKAPI'=>"8paydoithe",
+    'MKAPI'=>"ngocson92",
+
+    'SMSFRAME'=>0,
+    'SMSNAP'=>1,
+    'SMSMUA'=>0,
+    'SMSKHAC'=>0,
+    'SDT1'=>"0924861389",
+    'SDT2'=>"0565026454",
+    'SDT11'=>"0582794713",
+    'SDT22'=>"0924861389",
+    'SDT3'=>"0924861310",
+    'SDT4'=>"0582794713",
+    'SDT4'=>"BAN DA NHAN DUOC SMS",
+    'SITE'=>"8PAYDOITHE.COM",
+    'SDT3'=>"8PAYDOITHE.COM",
+    'SDT4'=>"8PAYDOITHE.COM"
+
+];
