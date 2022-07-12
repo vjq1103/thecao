@@ -6,6 +6,7 @@
  * Time: 5:06 PM
  */
 namespace App\Classes;
+
 class SpeedSMSAPI {
     const SMS_TYPE_QC = 1; // loai tin nhan quang cao
     const SMS_TYPE_CSKH = 2; // loai tin nhan cham soc khach hang
@@ -18,11 +19,11 @@ class SpeedSMSAPI {
 
     private $ROOT_URL = "https://api.speedsms.vn/index.php";
     private $accessToken = "5SRfZM5uttt0d45Fhaluooe_YvgUlcY8";
-	
+
 	function __construct($api_key) {
 		$this->accessToken = $api_key;
 	}
-	
+
     public function getUserInfo() {
         $url = $this->ROOT_URL.'/user/info';
         $headers = array('Accept: application/json');
@@ -62,7 +63,7 @@ class SpeedSMSAPI {
 
         if (($type == 3 || $type == 5 || $type == 7 || $type == 8) && empty($sender))
             return null;
-		
+
         $json = json_encode(array('to' => $to, 'content' => $smsContent, 'sms_type' => $type, 'sender' => $sender));
 
         $headers = array('Content-type: application/json');
@@ -91,4 +92,4 @@ class SpeedSMSAPI {
             return json_decode($result, true);
         }
     }
-} 
+}

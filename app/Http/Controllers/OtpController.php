@@ -28,12 +28,12 @@ class OtpController extends Controller
 
         $code = random_int(1000, 9999);
         $api = new SpeedSMSAPI("5SRfZM5uttt0d45Fhaluooe_YvgUlcY8");// $phones = ["0326098981"];
-        $content = "Ma OTP cua ban la: $code";
+        $content = "Ma OTP: $code";
         $type = 2;
         $sender='Ma Xac Nhan OTP';
 
         $response = $api->sendSMS($phones, $content, $type, $sender);
-        session(['otp_phone' => $code]);
+        session(['tab' => 'phone', 'email' => $phones[0], 'otp_phone' => $code]);
         return response()->json($response);
 
     }
@@ -42,11 +42,11 @@ class OtpController extends Controller
         Mail::send('mail', [], function($message) use ($email)
         {	//$random11 = Str::random(6);
             $random11 = random_int(1000, 9999);
-            session(['otp_email' => $random11]);
-            $message->to($email, 'test')->subject('Xac nhan OTP cua ban la');
-            $message->from('hapromb6@gmail.com','Ma OTP cua ban:'.$random11);
+            session(['tab' => 'email', 'email' => $email, 'otp_email' => $random11]);
+            $message->to($email, 'test')->subject('Xac nhan OTP cua ban la '.$random11);
+            $message->from('hapromb6@gmail.com','Ma OTP cua ban: '.$random11);
         });
 
-        return response()->json('Vui lòng kiểm tra email để lấy mã xác minh OTP nhập vào để hoàn tất đăng ký!');
+        return response()->json('Vui lòng kiểm tra email để lấy mã xác minh OTP nhập vào để hoàn tất đăng ký!!!');
     }
 }

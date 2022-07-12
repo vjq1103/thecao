@@ -165,7 +165,7 @@
                                         <div class="media-body">
                                             <h5 class="notification-user">
                                                 @if(Auth::guest())
-                                                    Người Dùng
+                                                    Đăng Nhập
                                                 @else
                                                     {{ Auth::user()->name}} {{ number_format(Auth::user()->money_1) }}  đ
                                                 @endif
@@ -206,7 +206,7 @@
                                         {{--                                User list    --}}
 
 
-                                        Người Dùng
+                                        Đăng Nhập
                                     @else
                                         {{ Auth::user()->name}} {{ number_format(Auth::user()->money_1) }}  đ
                                     @endif
@@ -224,7 +224,7 @@
                                     </li>
                                     <li class="waves-effect waves-light">
                                         <a href="{{ route('register') }}">
-                                            <i class="ti-star"></i>Đăng Ký
+                                            <i class="ti-share"></i> Đăng Ký
                                         </a>
                                     </li>
 
@@ -239,7 +239,7 @@
                                 <li class="waves-effect waves-light">
                                     <i class="ti-money"></i> Số dư 2:   {{ number_format(Auth::user()->money_2) }}  đ
                                 </li>
-                                @endif
+
                                 <li class="waves-effect waves-light">
                                     <a href="{{ route('user.profle') }}">
                                         <i class="ti-settings"></i> Settings
@@ -260,6 +260,8 @@
                                         <i class="ti-lock"></i> Lock Screen
                                     </a>
                                 </li>
+
+
                                 <li class="waves-effect waves-light">
                                     <a href="{{ route('logout') }}"  onclick="event.preventDefault();
                  document.getElementById('logout-form').submit();">
@@ -269,6 +271,8 @@
                                         {{ csrf_field() }}
                                     </form>
                                 </li>
+                                @endif
+
                             </ul>
                         </li>
                     </ul>
@@ -287,7 +291,7 @@
                                 <div class="user-details">
                                     <span id="more-details">
                                         @if(Auth::guest())
-                                            Người Dùng
+                                            Đăng Nhập
 
                                             {{--                                User list    --}}
 
@@ -315,7 +319,7 @@
                                                 <i class="ti-money"></i> Số dư 1:   {{ number_format(Auth::user()->money_1) }}  đ</a>
                                             <a href="#">
                                                 <i class="ti-money"></i> Số dư 2:   {{ number_format(Auth::user()->money_2) }}  đ</a>
-                                        @endif
+
 
                                         <a href="{{ route('user.profle') }}"><i class="ti-user"></i>View Profile</a>
                                         <a href="{{ route('user.profle') }}"><i class="ti-settings"></i>Settings</a>
@@ -324,6 +328,7 @@
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
+                                        @endif
                                     </li>
                                 </ul>
                             </div>

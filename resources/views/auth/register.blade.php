@@ -4,11 +4,6 @@
 @endsection
 
 @section('content')
-
-
-
-
-
 <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             @if(session()->has('message'))
@@ -22,11 +17,13 @@
                 </div>
 @endif
 
+
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-7">
             <div class="card">
-                <div class="card-header">{{ __('ĐĂNG KÍ') }}</div>
+                <div class="card-header">{{ __('ĐĂNG KÍ NẠP THẺ') }}</div>
 
                 <div class="card-body">
 
@@ -34,11 +31,11 @@
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs md-tabs" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#home3" role="tab">Email</a>
+                            <a class="nav-link @if(!session('tab') || (session('tab') && session('tab') == 'email')) active @endif" data-toggle="tab" href="#home3" role="tab">Email</a>
                             <div class="slide"></div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#profile3" role="tab">Điện Thoại</a>
+                            <a class="nav-link @if(session('tab') && session('tab') == 'phone') active @endif" data-toggle="tab" href="#profile3" role="tab">Điện Thoại</a>
                             <div class="slide"></div>
                         </li>
 
@@ -46,7 +43,7 @@
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content card-block">
-                        <div class="tab-pane active" id="home3" role="tabpanel">
+                        <div class="tab-pane @if(!session('tab') || (session('tab') && session('tab') == 'email')) active @endif" id="home3" role="tabpanel">
                             <!--- Nội dung Form 1 --->
 
                             <form method="POST" action="{{ route('register') }}">
@@ -87,6 +84,7 @@
 
                                 <div class="form-group row">
                                     <div class="col-md-12">
+{{--                                        <input id="phone_number" value="0" type="text" class="form-control" name="phone_number" required autofocus style="display: none">--}}
                                         <input placeholder="{{ __('Email của bạn') }}" id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
                                         @if ($errors->has('email'))
                                             <span class="invalid-feedback" role="alert">
@@ -172,7 +170,7 @@
                                 <div class="form-group row mb-0">
                                     <div class="col-md-6 offset-md-4">
                                         <button type="submit" class="btn btn-sm btn-success">
-                                            {{ __('ĐĂNG KÝ') }}
+                                            {{ __('ĐĂNG KÝ BẰNG EMAIL') }}
                                         </button>
                                     </div>
 
@@ -196,9 +194,9 @@
 
                             <!--- /Nội dung 1 --->
 
-                            <p class="m-0"> <!--- Nội dung 2 ---> </p>
+                        <p class="m-0"> <!--- Nội dung 2 ---> </p>
                         </div>
-                        <div class="tab-pane" id="profile3" role="tabpanel">
+                        <div class="tab-pane @if(session('tab') && session('tab') == 'phone') active @endif" id="profile3" role="tabpanel">
 
 
 
@@ -233,8 +231,13 @@
                                         @if ($errors->has('phone_number'))
                                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('phone_number') }} - Vui lòng nhập đúng số của bạn</strong>
-                                    </span>
+                                        </span>
                                         @endif
+
+                                    </div>
+
+                                    <div class="col-md-12">
+
                                     </div>
                                 </div>
 
@@ -254,11 +257,16 @@
 
                                 <div class="form-group row">
                                     <div class="col-md-8">
-                                        <input placeholder="Nhập Mã OTP" id="maotp" type="text" class="form-control" name="maotp" required autofocus>
+                                        <input placeholder="Nhập Mã OTP" id="maotp" type="text" class="form-control{{ $errors->has('maotp') ? ' is-invalid' : '' }}" name="maotp" required autofocus>
+                                        @if ($errors->has('maotp'))
+                                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('maotp') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                     <div class="col-md-4">
                                         <div class="otp-phone">
-                                            <buttons  class="btn btn-sm btn-danger"> Lấy Mã OTP</buttons>
+                                            <buttons  class="btn btn-sm btn-danger"> Lấy OTP Về Điện Thoại</buttons>
                                         </div>
                                     </div>
 
@@ -270,10 +278,12 @@
 
                                     <div class="col-md-12">
                                         <input id="ref"  placeholder="Nhập mã giới thiệu" type="text" class="form-control{{ $errors->has('ref') ? ' is-invalid' : '' }}" name="ref" value="{{ old('ref') }}" required autofocus>
+                                    </div>
+                                    <div class="col-md-12">
                                         @if ($errors->has('ref'))
                                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('ref') }}</strong>
-                                    </span>
+                                         </span>
                                         @endif
                                     </div>
                                 </div>
@@ -283,10 +293,13 @@
                                     <div class="col-md-12">
                                         <input placeholder="Nhập mật khẩu của bạn" id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
+
+                                    </div>
+                                    <div class="col-md-12">
                                         @if ($errors->has('password'))
                                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('password') }} - Mật khẩu 6 ký tự trở lên bao gồm chữ in hoa, chữ thường và số</strong>
-                                    </span>
+                                        </span>
                                         @endif
                                     </div>
 
@@ -300,10 +313,13 @@
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <input placeholder="MK Giao Dịch" id="password2" type="password" class="form-control" name="password2" required>
+
+                                    </div>
+                                    <div class="col-md-12">
                                         @if ($errors->has('password2'))
-                                            <span class="invalid-feedback" role="alert">
+                                        <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('password2') }} - Mật khẩu cấp 2 dùng cho các giao dịch quan trọng như rút tiền chuyển tiền. Mật khẩu phải bao gồm chữ cái viết hoa, chữ thường và số</strong>
-                                    </span>
+                                        </span>
                                         @endif
                                     </div>
                                 </div>
@@ -312,7 +328,7 @@
                                 <div class="form-group row mb-0">
                                     <div class="col-md-6 offset-md-4">
                                         <button type="submit" class="btn btn-sm btn-success">
-                                            {{ __('ĐĂNG KÝ') }}
+                                            {{ __('ĐĂNG KÝ BẰNG SỐ ĐIỆN THOẠI') }}
                                         </button>
                                     </div>
 
@@ -367,6 +383,9 @@
         }
     });
 
+
+
+
     $(document).ready(function(){
         $('.otp-email').click(function(){
             const email = $('#email').val();
@@ -383,7 +402,7 @@
                     'email': email,'_token': _token
                 },
                 success:function (response){
-                    $('.otp-email').hide();
+                    // $('.otp-email').hide();
                     alert(response);
                 }
             })
@@ -404,7 +423,7 @@
                     'phone': phone,'_token': _token
                 },
                 success:function (response){
-                    $('.otp-email').hide();
+                    // $('.otp-phone').hide();
                     alert(response);
                 }
             })

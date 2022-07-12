@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Rules\CheckEmailRule;
+use App\Rules\CheckOtpRule;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -33,6 +36,7 @@ class RegisterController extends Controller
      */
 
     protected $redirectTo = '/';
+
     /**
      * Create a new controller instance.
      *
@@ -51,16 +55,37 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            'phone_number' => 'required|unique:users',
-            'ref' => 'required|unique:users',
-            'password2' => 'required',
-            //'tinh' => 'required',
 
-        ]);
+        $rules = [
+            'name' => 'required|string|max:255',
+            'password' => 'required|string|min:6|confirmed',
+            'ref' => 'required|exists:users',
+            'password2' => 'required',
+        ];
+
+        if(!empty($data['email'])) {
+            //$data['email'] = trim($data['email'], '.'); //Bỏ dấu châm . ở mail
+            $rules['email'] = ['string','email','max:255','unique:users', new CheckEmailRule()];
+            $rules['maotp'] = [new CheckOtpRule(session('otp_email'))];
+        }
+
+        if(!empty($data['phone_number'])){
+            $rules['phone_number'] = ['unique:users','digits_between:10,13', new CheckEmailRule()];
+            $rules['maotp'] = [new CheckOtpRule(session('otp_phone'))];
+        }
+
+        return  Validator::make($data, $rules);
+
+//        return Validator::make($data, [
+//            'name' => 'required|string|max:255',
+//            'email' => 'string|email|max:255|unique:users',
+//            'password' => 'required|string|min:6|confirmed',
+//            'phone_number' => 'unique:users',
+//            'ref' => 'required|unique:users|exists:users',
+//            'password2' => 'required',
+//            //'tinh' => 'required',
+//
+//        ]);
     }
 
     /**
@@ -86,30 +111,37 @@ class RegisterController extends Controller
         //2. Get lại session otp
         //3. Check điều điện thỏa mãn thì tạo người dùng thành công
 
-        $inputOtp = $data['maotp'];
-        var_dump($inputOtp);
-        $sessionOtp =  session('otp_email');
-        dd($sessionOtp);
+
+//       var_dump($inputOtp);  dd($sessionOtp);
+//        try {
+//            // Validate the value...
+//        } catch (Throwable $e) {
+//            report($e);
+//
+//            return false;
+//        }
 
 
-        if ( $data['maotp'] == $sessionOtp)
-        {
+
+        $Codef = Str::random(6);
 
             return User::create([
                 'name' => $data['name'],
-                'email' => $data['email'],
+                'email' => $data['email'] ?? null,
                 'password' => Hash::make($data['password']),
-                'phone_number'=>$data['phone_number'],
+                'phone_number'=>$data['phone_number'] ?? null,
                 'password2' =>$data['password2'],
-                'ref' =>Str::random(6),
+                'ref' => Str::random(6),
+                'magioithieu' => Str::random(6),
                 //'tinh' =>$data['tinh'],
             ]);
+            //return redirect()->route('home')->with('message','Đăng nhập thành công.');
 
 
-        }
+    }
 
-        return;
-
-
+    protected function registered(Request $request, $user)
+    {
+        return redirect('/home')->with('message', 'Chào mừng: ' . $user->email);
     }
 }

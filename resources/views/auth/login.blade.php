@@ -9,7 +9,7 @@
 
 @if(session()->has('message'))
     <div class="alert alert-success" data-animation-in="animated fadeIn" data-animation-out="animated fadeOut">
-        {{ session()->get('message') }}
+        {{ session('message') }}
     </div>
 @endif
 @if(session()->has('error'))
@@ -89,6 +89,7 @@
                             </div>
                             <div class="col-md-4"></div>
                         </div>
+                    </form>
 
                         <center><button class="btn btn-sm waves-effect waves-light btn-success btn-outline-success text-center"><i class="icofont icofont-check-circled"></i><a href="{{ route('register') }}">Đăng Kí Ngay</a></button></center>
 
@@ -105,7 +106,7 @@
                            </div>
 
 
-                    </form>
+
 
             </div>
         </div>

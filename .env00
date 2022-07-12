@@ -11,6 +11,7 @@ MAIL_FROM_NAME=Company
 #2 Sửa config các gói
 C:\Intel\XAMP\htdocs\the\bootstrap\cache\packages.php
 
+#3 .gitignore : bỏ những thư mục không upload lên git
 
 
 
@@ -29,6 +30,33 @@ C:\Intel\XAMP\htdocs\the\bootstrap\cache\packages.php
 
 
 
+#3A
+@if(session()->has('message'))
+    <div class="alert alert-success" data-animation-in="animated fadeIn" data-animation-out="animated fadeOut">
+        {{ session()->get('message') }}
+    </div>
+@endif
+@if(session()->has('error'))
+
+    <div class="alert alert-danger" data-animation-in="animated fadeIn" data-animation-out="animated fadeOut">
+        {{ session()->get('error') }}
+    </div>
+@endif
+
+
+
+
+
+#4 Đổi ngôn ngữ tại: Lang: en -> vi
+jetbrains://php-storm/navigate/reference?project=the&path=config/app.php
+
+#5 Copy ngôn ngữ en -> vi
+resources/lang/...
+
+#6
+C:\Intel\XAMP\htdocs\the\vendor\laravel\framework\src\Illuminate\Foundation\Auth\RegistersUsers.php
+C:\Intel\XAMP\htdocs\the\app\Rules\CheckOtpRule.php
+C:\Intel\XAMP\htdocs\the\app\Http\Controllers\OtpController.php
 
 
 

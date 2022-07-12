@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/nap-the';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -50,9 +50,11 @@ class LoginController extends Controller
 
 
 
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password]) || Auth::attempt(['phone_number' => $request->email, 'password' => $request->password]) ) {
+
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password]) || Auth::attempt(['phone_number' => $request->phone_number, 'password' => $request->password]) ) {
 //             return redirect()->intended('admin-dashboard');
-            return redirect()->back()->with('message','Đăng nhập thành công.');
+
+            return redirect()->route('home')->with('message','Đăng nhập thành công. ' . $request->user()->email);
 
         }  else {
             $this->incrementLoginAttempts($request);
@@ -62,4 +64,10 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
         return $this->sendFailedLoginResponse($request);
     }
+//
+//    protected function credentials(Request $request): array
+//    {
+//        if (is_numeric($request->phone_number)) return ['phone_number' => $request->email, 'password' => $request->password];
+//        else return ['email' => $request->email, 'password' => $request->password];
+//    }
 }
