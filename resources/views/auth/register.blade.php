@@ -96,6 +96,11 @@
                                 <div class="form-group row">
                                     <div class="col-md-8">
                                         <input placeholder="Nhập Mã OTP" id="maotp" type="text" class="form-control" name="maotp" required autofocus>
+                                        @if ($errors->has('maotp'))
+                                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('maotp') }}</strong>
+                                    </span>
+                                        @endif
                                     </div>
                                     <div class="col-md-4">
                                     <div class="otp-email">

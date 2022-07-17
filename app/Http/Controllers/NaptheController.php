@@ -8,7 +8,7 @@ use App\Card;
 use App\Payment;
 use Config;
 use Auth;
-use Facades\Yugo\SMSGateway\Interfaces\SMS;
+//use Facades\Yugo\SMSGateway\Interfaces\SMS;
 use App\Classes\SpeedSMSAPI;
 use Illuminate\Http\UploadedFile;
 use Carbon\Carbon;
@@ -20,10 +20,10 @@ class NaptheController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-   
+
     public function index()
     {
-        
+
         $user = Auth::user()->id;
         $h = "select *,c.card_name from payments left join cat_cards c On payments.provider = c.card_code where user_id = $user and payments.payment_status =0";
         $hsitory = DB::select($h);
@@ -35,7 +35,7 @@ class NaptheController extends Controller
     }
 
 
-     
+
 
 
 
@@ -46,83 +46,89 @@ class NaptheController extends Controller
         $NOT_IMAGES = Config::get('constants.NOT_IMAGES');
         $CHO_DUYET = Config::get('constants.CHO_DUYET');
         $CHUA_XOA = Config::get('constants.CHUA_XOA');
+
+
 		//get discount
         $q = Card_card::where('card_code',$request->get('card_type'))->get();
         $card_discount = null;
         foreach($q as $value) {
             $card_discount = $value['card_discount'];
         }
-		
-	 
-		//Mi thu vardum no ra xem da gui du lieu len chua, no tra ve ko
+
+
+		//B thu vardum no ra xem da gui du lieu len chua, no tra ve ko
 		// nhu nay, no la lay du lieu ve ma, cai nay la gi requestRecharge_Cuoc3MienCom
 		// Request qua he thong Cuoc3MienCom
-     
-            $TKAPI = Config::get('constants.TKAPI');
-            $MKAPI = Config::get('constants.MKAPI');
-		    $res = json_decode(requestRecharge_Cuoc3MienCom([
-			"authUsername" => $TKAPI,
-			"authPassword" => $MKAPI,
-			"selProvider" => $request->get('card_type'),
-			"txtCardNumber" => $request->get('card_pin'),
-			"txtCardSeri" => $request->get('card_seria'),
-			"txtCardValue" => $request->get('card_price')
-		]));
-		 
-		
-		if($res->errorCode == 1){
-			$CardValue = $res->errorPayload->cardValue; // Menh gia thuc cua the
-			// Xu ly ket qua the chinh xac - xử lí kết quả thẻ chính xác
-			$result = Payment::create([
-                'phone' => $request->get('user_phone'),
-                'card_type_id' => $request->get('card_price'),
-                'pin' => $request->get('card_pin'), //pin
-                'serial' => $request->get('card_seria'), //serri
-                'provider' => $request->get('card_type'), //mang
-                'user_id' => $request->get('user_id'),
-                'link_id' => null,
-                'ip_request' => null,
-                'price' => $request->get('card_price'),
-                'amount' => 0,
-                'rate' => $card_discount,
-                'transaction_id' => str_random(10),
-                'balance' => 0,
-                'requestId' => null,
-                'topup_type' => 0,
-                'is_image' =>  $NOT_IMAGES,
-                'image_url' => null,
-                'notes' => $res->errorMessage,
-                'payment_status' =>  2,
-                'is_deleted' => $CHUA_XOA,            
-           ]);
-			
-		}else{
-				// Xu ly the sai - thẻ lỗi?
-			$result = Payment::create([
-                'phone' => $request->get('user_phone'),
-                'card_type_id' => $request->get('card_price'),
-                'pin' => $request->get('card_pin'), //pin
-                'serial' => $request->get('card_seria'), //serri
-                'provider' => $request->get('card_type'), //mang
-                'user_id' => $request->get('user_id'),
-                'link_id' => null,
-                'ip_request' => null,
-                'price' => $request->get('card_price'),
-                'amount' => 0,
-                'rate' => $card_discount,
-                'transaction_id' => str_random(10),
-                'balance' => 0,
-                'requestId' => null,
-                'topup_type' => 0,
-                'is_image' =>  $NOT_IMAGES,
-                'image_url' => null,                
-                'notes' => $res->errorMessage,
-                'payment_status' =>  3,
-                'is_deleted' => $CHUA_XOA,            
-           ]);
-        }
-		
-        //CHECK NAP BANG THE HAY ANH		
+
+//            $TKAPI = Config::get('constants.TKAPI');
+//            $MKAPI = Config::get('constants.MKAPI');
+//		    $res = json_decode(requestRecharge_Cuoc3MienCom([
+//			"authUsername" => $TKAPI,
+//			"authPassword" => $MKAPI,
+//			"selProvider" => $request->get('card_type'),
+//			"txtCardNumber" => $request->get('card_pin'),
+//			"txtCardSeri" => $request->get('card_seria'),
+//			"txtCardValue" => $request->get('card_price')
+//		]));
+
+//Cuoc 3 Mien
+//		if($res->errorCode == 1){
+//			$CardValue = $res->errorPayload->cardValue; // Menh gia thuc cua the
+//			// Xu ly ket qua the chinh xac - xử lí kết quả thẻ chính xác
+//			$result = Payment::create([
+//                'phone' => $request->get('user_phone'),
+//                'card_type_id' => $request->get('card_price'),
+//                'pin' => $request->get('card_pin'), //pin
+//                'serial' => $request->get('card_seria'), //serri
+//                'provider' => $request->get('card_type'), //mang
+//                'user_id' => $request->get('user_id'),
+//                'link_id' => null,
+//                'ip_request' => null,
+//                'price' => $request->get('card_price'),
+//                'amount' => 0,
+//                'rate' => $card_discount,
+//                'transaction_id' => str_random(10),
+//                'balance' => 0,
+//                'requestId' => null,
+//                'topup_type' => 0,
+//                'is_image' =>  $NOT_IMAGES,
+//                'image_url' => null,
+//                'notes' => $res->errorMessage,
+//                'payment_status' =>  2,
+//                'is_deleted' => $CHUA_XOA,
+//           ]);
+//
+//		}else{
+//				// Xu ly the sai - thẻ lỗi?
+//			$result = Payment::create([
+//                'phone' => $request->get('user_phone'),
+//                'card_type_id' => $request->get('card_price'),
+//                'pin' => $request->get('card_pin'), //pin
+//                'serial' => $request->get('card_seria'), //serri
+//                'provider' => $request->get('card_type'), //mang
+//                'user_id' => $request->get('user_id'),
+//                'link_id' => null,
+//                'ip_request' => null,
+//                'price' => $request->get('card_price'),
+//                'amount' => 0,
+//                'rate' => $card_discount,
+//                'transaction_id' => str_random(10),
+//                'balance' => 0,
+//                'requestId' => null,
+//                'topup_type' => 0,
+//                'is_image' =>  $NOT_IMAGES,
+//                'image_url' => null,
+//                'notes' => $res->errorMessage,
+//                'payment_status' =>  3,
+//                'is_deleted' => $CHUA_XOA,
+//           ]);
+//        }
+//
+//End Cuoc 3 Mien
+
+
+
+        //CHECK NAP BANG THE HAY ANH
         if($request->get('nap_the')  ==  $NOT_IMAGES) {
             $result = Payment::create([
                 'phone' => $request->get('user_phone'),
@@ -144,7 +150,7 @@ class NaptheController extends Controller
                 'image_url' => null,
                 'notes' => null,
                 'payment_status' =>  $CHO_DUYET,
-                'is_deleted' => $CHUA_XOA,            
+                'is_deleted' => $CHUA_XOA,
            ]);
         } else {
             $file = $request->file('img');
@@ -156,14 +162,14 @@ class NaptheController extends Controller
              $this->validate($request, [
                  'file' => 'image|max:2028',
              ], $messages);
-     
+
             if ($request->file('img')->isValid()){
                  // Lấy tên file
 				$day = Carbon::now()->day; //ngày
 				$month =Carbon::now()->month; //tháng
-				$year =Carbon::now()->year; //năm	
-				
-                $file_path = "/uploads/$year/$month/$day/";		
+				$year =Carbon::now()->year; //năm
+
+                $file_path = "/uploads/$year/$month/$day/";
                  $file_name = $year."-".$month."-".str_random(10)."-".$request->file('img')->getClientOriginalName();
                  //$file_name = $request->file('img')->getClientOriginalName();
                  // Lưu file vào thư mục upload với tên là biến $filename
@@ -189,31 +195,33 @@ class NaptheController extends Controller
                 'image_url' => $urlFile,
                 'notes' => null,
                 'payment_status' => $CHO_DUYET,
-                'is_deleted' => $CHUA_XOA,            
+                'is_deleted' => $CHUA_XOA,
            ]);
         }
-      
+
        if($result) {
-          
-        
-                $api = new SpeedSMSAPI("5SRfZM5uttt0d45Fhaluooe_YvgUlcY8");            
-                $api->sendSMS(["","0394826385"], " Frame Phone: " .$request->get('phone'). " - Price ".number_format($amount). " Type: ".$request->get('card_type'). " - Seri: " .$request->get('card_seria')." From Frame Link:  ".$request->get('getlink')  , 5, 'cb42da309804');   
-                
-		   
-		 
+
+
+//                $api = new SpeedSMSAPI("5SRfZM5uttt0d45Fhaluooe_YvgUlcY8");
+//                $api->sendSMS(["","0394826385"], " Frame Phone: " .$request->get('phone'). " - Price ".number_format($amount). " Type: ".$request->get('card_type'). " - Seri: " .$request->get('card_seria')." From Frame Link:  ".$request->get('getlink')  , 5, 'cb42da309804');
+
+
+
         $SITE = Config::get('constants.SITE');
         $SMSNAP = Config::get('constants.SMSNAP');
         $SDT1 = Config::get('constants.SDT1');
         $SDT2 = Config::get('constants.SDT2');
-		   
-		if($SMSNAP === 1)  {  
-		//Ham gui sms ve dien thoai   
-		$contentSMS = $SITE." - Truc tiep ".$request->get('card_type')." Price ".number_format($request->get('card_price'))." vnd, Seri: ".$request->get('card_seria')." PIN: ".$request->get('card_pin').$SDT2.$SDT1;
-		SMS::send([$SDT1,$SDT2], $contentSMS);
-		}
+
+
+// Gui ve dien thoai
+//		if($SMSNAP === 1)  {
+//		//Ham gui sms ve dien thoai
+//		$contentSMS = $SITE." - Truc tiep ".$request->get('card_type')." Price ".number_format($request->get('card_price'))." vnd, Seri: ".$request->get('card_seria')." PIN: ".$request->get('card_pin').$SDT2.$SDT1;
+//		SMS::send([$SDT1,$SDT2], $contentSMS);
+//		}
 		//SMS::send(['',''], $contentSMS);
-        return redirect()->back()->with('message', 'Đã nạp lên hệ thống nhà mạng.'); 
-			 
+        return redirect()->back()->with('message', 'Đã nạp lên hệ thống nhà mạng.');
+
        }
        return false;
     }
@@ -227,20 +235,20 @@ class NaptheController extends Controller
         $user = Auth::user()->id;
         $q = "select *,c.card_name from payments left join cat_cards c On payments.provider = c.card_code where user_id = $user";
         $hsitory = DB::select($q)->paginate(8);
-		
+
         return view('napthe.index',compact('hsitory', 'idsort'));
     }
 
     public function HistoryPending()
     {
-        $user = Auth::user()->id;        
+        $user = Auth::user()->id;
         $today = Carbon::today();
         $today = $today->format('Y-m-d');
 
         $hsitory = DB::table('payments')
                 ->leftJoin('users', 'payments.user_id', '=', 'users.id')
                 ->leftJoin('cat_cards as c', 'payments.provider', '=', 'c.card_code')
-                ->where('payments.user_id', '=', $user) 
+                ->where('payments.user_id', '=', $user)
 			  ->where('payments.created_at','Like',"%{$today}%")
                 ->select('c.card_name','payments.pin','payments.serial','c.card_code','payments.payment_status','payments.link_id','payments.payment_id',
                     'payments.image_url',
@@ -259,25 +267,25 @@ class NaptheController extends Controller
                 )
                 ->orderByRaw('payments.payment_id - payments.created_at ASC')
                 ->paginate(10);
-                //dd($today); 
+                //dd($today);
                // SELECT * FROM `payments` WHERE `created_at` LIKE '%2019-04-07%'
-			   
+
              $count_today_muathe = DB::table('payments')
                 ->leftJoin('users', 'payments.user_id', '=', 'users.id')
                 ->leftJoin('cat_cards as c', 'payments.provider', '=', 'c.card_code')
-                ->where('payments.user_id', '=', $user) 
+                ->where('payments.user_id', '=', $user)
                 ->where('payments.created_at','Like',"%{$today}%")
 				->select(DB::raw('SUM(payments.price) as tong_tien_mua_the'))
 				->first();
-				
+
 			$count_today_amout =  DB::table('payments')
                 ->leftJoin('users', 'payments.user_id', '=', 'users.id')
                 ->leftJoin('cat_cards as c', 'payments.provider', '=', 'c.card_code')
-                ->where('payments.user_id', '=', $user) 
+                ->where('payments.user_id', '=', $user)
                 ->where('payments.created_at','Like',"%{$today}%")
 				->select(DB::raw('SUM(payments.amount) as tong_amount'))
 				->first();
-	
+
         return view('history.napthe',compact(['hsitory','count_today_muathe','count_today_amout']));
     }
 
@@ -289,7 +297,7 @@ class NaptheController extends Controller
         $user = Auth::user()->id;
         $q = "select *,c.card_name from payments left join cat_cards c On payments.provider = c.card_code where user_id = $user";
         $hsitory = DB::select($q)->paginate(10);
-        
+
         return view('napthe.index',compact('hsitory'));
     }
 
@@ -301,7 +309,7 @@ class NaptheController extends Controller
         $hsitorytody = DB::table('payments')
                 ->leftJoin('users', 'payments.user_id', '=', 'users.id')
                 ->leftJoin('cat_cards as c', 'payments.provider', '=', 'c.card_code')
-                ->where('payments.user_id', '=', $user) 
+                ->where('payments.user_id', '=', $user)
                 ->select('c.card_name','payments.pin','payments.serial','c.card_code','payments.payment_status','payments.link_id','payments.payment_id',
                     'payments.image_url',
                     'payments.is_image',
@@ -320,15 +328,6 @@ class NaptheController extends Controller
                 // return $hsitory;
         return view('history.naptrongngay',compact('naptrongngay'));
     }
-
-
-
-
-
- 
-
-
-
 
 
 

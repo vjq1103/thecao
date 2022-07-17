@@ -1,6 +1,6 @@
 @extends('master')
 @section('title')
-    Nạp Thẻ 
+    Nạp Thẻ
 @endsection
 @section('content')
     <div class="row">
@@ -77,10 +77,10 @@
 				<br/><p style="color:#988d8d">Ghi chú: Các bạn nhập đúng seri và mã pin cùng chọn loại thẻ chuẩn xác rồi kiểm tra thẻ ở lịch sử thẻ nạp, kiểm tra tiền ở menu người dùng</p>
         </div>
 
-		
-		
-		
-		<?php /**
+
+
+
+
         <div class="col-md-4">
             <h4>NẠP ẢNH</h4>
                         <br>
@@ -96,9 +96,9 @@
                                         <option  value="{{ $key->card_code }}">{{ $key->card_name }}</option>
                                     @endforeach
                                 </select>
-            
+
                             </div>
-                           
+
                             <div class="form-group">
                               <label for="">Ảnh chụp</label>
                               <input required type="file" class="form-control"name="img" id="img" placeholder="Mã Seria">
@@ -123,11 +123,11 @@
                             <button type="submit" class="btn-sm btn btn-success">NẠP ẢNH</button>
                           </form>
         </div>
-		
+        <?php /**
 		**/ ?>
-		
-		
-		
+
+
+
         <div class="col-md-6">
             <div class="panel panel-default panel-table">
                 <h4>CHIẾT KHẤU %</h4>
@@ -135,7 +135,7 @@
                     <table class="table table-striped table-bordered table-hover">
                        <thead>
                           <tr>
-                             
+
                              <th>Nhà mạng</th>
                              <th class="number">Chiết khấu</th>
                              <th class="number">Trạng thái</th>
@@ -169,18 +169,18 @@
             <div class="col-md-12">
               <h4>THẺ MỚI NẠP</h4>
 				<div class="table-responsive">
-				
+
 				<!---- -->
-				   
+
 <div class="row">
 	<div class="col-sm-2">Dữ liệu:
 		<input type="text" placeholder="Số Seri, Pin" class="form-control input-xs">
 		</div>
-		<div class="col-sm-2">Từ ngày: 
+		<div class="col-sm-2">Từ ngày:
 		  <input type="date" class="form-control input-xs">
-		  
+
 		  </div>
-		<div class="col-sm-2">Đến ngày:  
+		<div class="col-sm-2">Đến ngày:
 		  <input type="date" class="form-control input-xs"></div>
 		<div class="col-sm-2">Tình trạng:
 			<select class="form-control input-xs">
@@ -207,9 +207,9 @@
 		</div>
 		<br/>
 				<!---- -->
-				
-				
-				
+
+
+
                  <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>

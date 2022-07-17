@@ -24,20 +24,44 @@
                 <input type="hidden" name="username" value="{{ Auth::user()->name }}">
 
 
+
+
                 <div class="form-group">
-                    <label for="">Chọn tài khoản</label>
-                    <select id="bank" class="form-control" name="cars">
-
+                    <label for="">Chọn ngân hàng</label>
+                    <select id="card_type" class="form-control" name="card_type"  required onchange="checkCardType(this)">
                         @if(isset($settingBank))
-
                             @foreach($settingBank as $key => $value)
                                 <option value="{{$value->id}}">{{$value->name}}</option>
                             @endforeach
-
                         @endif
                     </select>
 
-                    <p id="naptien"></p>
+                    <p id="nganhang"></p>
+
+
+
+                    <script>
+
+
+                        function checkCardType(selected){
+                            var cardType = selected.value;
+                            console.log(cardType)
+                            if(cardType === '3'){
+                                //disable selec tien
+                                $("#card_type").focusout(function () {
+
+                                    $('#nganhang').html("").html(commaSeparateNumber($(this).val()) + " Copy Ngân Hàng")
+                                });
+                            }
+
+                            else {
+                                $('#nganhang').html("").html(commaSeparateNumber($(this).val()) + "  Ngân Hàng")
+                            }
+                        }
+
+                    </script>
+
+
                 </div>
 
 
@@ -166,5 +190,20 @@
 
             $('#naptien').html("").html(commaSeparateNumber($(this).val()) + "đ")
         });
+
+
+
+
+        ///Ham 2
+
+
+
+
+
+
+
+
+
+
     </script>
 @endsection
